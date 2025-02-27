@@ -19,3 +19,7 @@ yarn-error.log
 
 expo-env.d.ts
 # @end expo-cli
+
+# Ignore Android and iOS build folders as long as we can rebuild them
+/android
+/ios
