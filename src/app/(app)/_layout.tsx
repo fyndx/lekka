@@ -23,7 +23,6 @@ export default function TabLayout() {
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
   }
-
   return (
     <Tabs>
       <Tabs.Screen
