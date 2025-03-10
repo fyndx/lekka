@@ -3,9 +3,9 @@ import '../../global.css';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
+import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React from 'react';
 import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -56,6 +56,7 @@ function Providers({ children }: { children: React.ReactNode }) {
             <BottomSheetModalProvider>
               {children}
               <FlashMessage position="top" />
+              <PortalHost />
             </BottomSheetModalProvider>
           </APIProvider>
         </ThemeProvider>

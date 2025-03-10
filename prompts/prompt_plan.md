@@ -129,28 +129,6 @@ Let’s break down each chunk further.
 
 ## **3.1 Chunk A: Project Setup & Environment**
 
-1. **Create React Native Project**
-
-   - Use `npx react-native init AgriCostCalculator` (or similar command).
-
-2. **Install Dependencies**
-
-   - `npm install @react-navigation/native @react-navigation/stack`
-   - `npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context`
-   - `npm install @react-native-async-storage/async-storage`
-   - `npm install react-native-fs react-native-print react-native-pdf`
-   - If using Redux: `npm install redux react-redux @reduxjs/toolkit`
-   - If using Context API, no extra dependency needed for that.
-
-3. **Configure ESLint & Prettier**
-
-   - `npm install --save-dev eslint prettier`
-   - Generate `.eslintrc.js` and `.prettierrc` files.
-   - Adjust settings to suit React Native.
-
-4. **Verify Project Runs**
-   - `npx react-native run-android` or `run-ios`.
-
 ## **3.2 Chunk B: Basic Navigation & Screen Structure**
 
 1. **Create Navigation Container** in `App.js`.
@@ -163,25 +141,6 @@ Let’s break down each chunk further.
 
 ## **3.3 Chunk C: Data Models & Product Selection**
 
-1. **Create or define a `products.js`** array or JSON object with sample products:
-   ```js
-   export const PRODUCTS = [
-     {
-       productName: 'Wheat',
-       priceUnit: 'perQuintal',
-       defaultPrice: 2000,
-       wastageUnit: 'perQuintal',
-       defaultWastage: 2,
-     },
-     {
-       productName: 'Corn',
-       priceUnit: 'perBag',
-       defaultPrice: 1500,
-       wastageUnit: 'perBag',
-       defaultWastage: 3,
-     },
-   ];
-   ```
 2. **Product Dropdown**: On Home Screen, let user pick from these products.
 
 ## **3.4 Chunk D: Implement Price & Wastage Form**
@@ -244,49 +203,6 @@ Each chunk has sub-steps that are quite **manageable** and can be **implemented 
 Below is a **series of prompts** you can feed into a code-generation LLM. Each step **builds on the previous**; no code is left hanging or orphaned.
 
 > **Formatting Note**: For best results, copy-paste each prompt sequentially into the LLM. Let the LLM generate each part of the code, then move on to the next prompt.
-
----
-
-## **Prompt A: Project Setup & Basic Environment**
-
-```text
-You are an AI coding assistant. I need you to create a new React Native project called "AgriCostCalculator" using best practices.
-1. Initialize the project (e.g., using npx react-native init AgriCostCalculator).
-2. Install necessary dependencies:
-   - @react-navigation/native
-   - @react-navigation/stack
-   - react-native-reanimated
-   - react-native-gesture-handler
-   - react-native-screens
-   - react-native-safe-area-context
-   - @react-native-async-storage/async-storage
-   - react-native-fs
-   - react-native-print
-   - react-native-pdf
-3. Initialize ESLint and Prettier in the project, with a .eslintrc.js and .prettierrc configured for React Native.
-4. Provide the package.json file and the basic folder structure after these installations.
-
-Generate the steps and code snippets that reflect these actions, but do not write placeholders for entire node_modules or other large auto-generated content.
-```
-
----
-
-## **Prompt B: Basic Navigation & Screen Structure**
-
-```text
-Now that the project is set up, let's create a basic navigation structure with three screens: HomeScreen, HistoryScreen, and BillScreen.
-
-1. Use a stack navigator (from @react-navigation/stack).
-2. Create placeholder components:
-   - HomeScreen.js
-   - HistoryScreen.js
-   - BillScreen.js
-3. In App.js, set up NavigationContainer and Stack.Navigator.
-4. In each screen, render minimal text, e.g. "Home Screen", "History Screen", "Bill Screen".
-5. Show the final file structure and relevant code in each file.
-
-Make sure your code builds on the previously generated structure, and do not overwrite unrelated configurations.
-```
 
 ---
 
