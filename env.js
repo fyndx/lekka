@@ -37,8 +37,8 @@ require("dotenv").config({
 const BUNDLE_ID = "io.fyndx.lekka"; // ios bundle id
 const PACKAGE = "io.fyndx.lekka"; // android package name
 const NAME = "lekka"; // app name
-const EXPO_ACCOUNT_OWNER = "expo-owner"; // expo account owner
-const EAS_PROJECT_ID = "c3e1075b-6fe7-4686-aa49-35b46a229044"; // eas project id
+const EXPO_ACCOUNT_OWNER = "fyndx"; // expo account owner
+const EAS_PROJECT_ID = "5e6fe78d-c388-4076-a85c-ba8b60f6e8a9"; // eas project id
 const SCHEME = "lekka"; // app scheme
 
 /**

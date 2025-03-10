@@ -23,15 +23,13 @@ export default function TabLayout() {
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
   }
-  // if (status === 'signOut') {
-  //   return <Redirect href="/login" />;
-  // }
+
   return (
     <Tabs>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Products',
           tabBarIcon: ({ color }) => <House color={color} />,
           tabBarButtonTestID: 'home-tab',
         }}
