@@ -10,6 +10,7 @@ interface ProductsStore {
   addProduct: (product: Product) => void;
   removeProduct: (product: Product) => void;
   getProducts: () => Product[];
+  setProducts: (products: Product[]) => void;
 }
 
 export const useProducts = create<ProductsStore>()(
@@ -18,11 +19,17 @@ export const useProducts = create<ProductsStore>()(
       products: [],
       addProduct: (product) =>
         set((state) => ({ products: [...state.products, product] })),
+      setProducts: (products) => set({ products }),
       removeProduct: (product) =>
         set((state) => ({
           products: state.products.filter((p) => p !== product),
         })),
-      getProducts: () => get().products,
+      getProducts: () =>
+        get().products.map((p) => ({
+          ...p,
+          label: p.productName,
+          value: p.productName,
+        })),
     }),
     {
       name: 'products',

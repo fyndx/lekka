@@ -14,17 +14,25 @@ import {
   View,
 } from '@/components/ui';
 import { Github, Rate, Share, Support, Website } from '@/components/ui/icons';
-import { translate, useAuth } from '@/lib';
+import { translate } from '@/lib';
+import { useProducts } from '@/models/products/product.store';
+import { PRODUCTS } from '@/seeds/products';
 
 export default function Settings() {
-  const signOut = useAuth.use.signOut();
+  const { setProducts: setProductsOnStore } = useProducts();
+
+  const setProducts = () => {
+    setProductsOnStore(PRODUCTS);
+    // TODO: add burnt toast like notification
+  };
+
   const { colorScheme } = useColorScheme();
   const iconColor =
     colorScheme === 'dark' ? colors.neutral[400] : colors.neutral[500];
+
   return (
     <>
       <FocusAwareStatusBar />
-
       <ScrollView>
         <View className="flex-1 px-4 pt-16 ">
           <Text className="text-xl font-bold">
@@ -75,7 +83,7 @@ export default function Settings() {
 
           <View className="my-8">
             <ItemsContainer>
-              <Item text="settings.logout" onPress={signOut} />
+              <Item text="settings.setProducts" onPress={setProducts} />
             </ItemsContainer>
           </View>
         </View>

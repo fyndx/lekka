@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Cover } from '@/components/cover';
 import {
@@ -10,9 +10,18 @@ import {
   View,
 } from '@/components/ui';
 import { useIsFirstTime } from '@/lib/hooks';
+import { useProducts } from '@/models/products/product.store';
+import { PRODUCTS } from '@/seeds/products';
+
 export default function Onboarding() {
   const [_, setIsFirstTime] = useIsFirstTime();
+  const { setProducts } = useProducts();
   const router = useRouter();
+
+  useEffect(() => {
+    setProducts(PRODUCTS);
+  }, [setProducts]);
+
   return (
     <View className="flex h-full items-center  justify-center">
       <FocusAwareStatusBar />
@@ -20,25 +29,13 @@ export default function Onboarding() {
         <Cover />
       </View>
       <View className="justify-end ">
-        <Text className="my-3 text-center text-5xl font-bold">
-          Obytes Starter
-        </Text>
+        <Text className="my-3 text-center text-5xl font-bold">Lekka App</Text>
         <Text className="mb-2 text-center text-lg text-gray-600">
-          The right way to build your mobile app
+          Calculate the price of your products
         </Text>
 
-        <Text className="my-1 pt-6 text-left text-lg">
-          🚀 Production-ready{' '}
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🥷 Developer experience + Productivity
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🧩 Minimal code and dependencies
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          💪 well maintained third-party libraries
-        </Text>
+        <Text className="my-1 pt-6 text-left text-lg">🚀 Simple </Text>
+        <Text className="my-1 text-left text-lg">🥷 Powerful</Text>
       </View>
       <SafeAreaView className="mt-6">
         <Button
