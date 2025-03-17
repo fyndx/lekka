@@ -7,6 +7,7 @@
     "app_name": "App Name",
     "arabic": "Arabic",
     "english": "English",
+    "telugu": "Telugu",
     "generale": "General",
     "github": "Github",
     "language": "Language",
@@ -29,5 +30,24 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site"
+  "welcome": "Welcome to obytes app site",
+  "product": "Product",
+  "bagWeight": "Bag Weight",
+  "price": {
+    "amount": "Price",
+    "weight": "Weight"
+  },
+  "fullBags": "Full Bags",
+  "looseWeight": "Loose Weight",
+  "wastage": {
+    "amount": "Wastage Amount",
+    "referenceWeight": "Reference Weight"
+  },
+  "result": {
+    "title": "Result",
+    "totalWeight": "Total Weight",
+    "wastage": "Wastage",
+    "netWeight": "Net Weight",
+    "totalAmount": "Total Amount"
+  }
 }

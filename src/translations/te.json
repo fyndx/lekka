@@ -1,0 +1,53 @@
+{
+  "onboarding": {
+    "message": "ఓబైట్స్ యాప్ సైట్‌కు స్వాగతం"
+  },
+  "settings": {
+    "about": "గురించి",
+    "app_name": "యాప్ పేరు",
+    "arabic": "అరబిక్",
+    "english": "ఇంగ్లీష్",
+    "telugu": "తెలుగు",
+    "generale": "సాధారణ",
+    "github": "గిథబ్",
+    "language": "భాష",
+    "links": "లింకులు",
+    "setProducts": "ఉత్పత్తులను సెట్ చేయండి",
+    "more": "మరిన్ని",
+    "privacy": "గోప్యతా విధానం",
+    "rate": "రేట్ చేయండి",
+    "share": "షేర్ చేయండి",
+    "support": "మద్దతు",
+    "support_us": "మాకు మద్దతు ఇవ్వండి",
+    "terms": "సేవా నిబంధనలు",
+    "theme": {
+      "dark": "డార్క్",
+      "light": "లైట్",
+      "system": "సిస్టమ్",
+      "title": "థీమ్"
+    },
+    "title": "సెట్టింగ్స్",
+    "version": "వర్షన్",
+    "website": "వెబ్‌సైట్"
+  },
+  "welcome": "ఓబైట్స్ యాప్ సైట్‌కు స్వాగతం",
+  "product": "ఉత్పత్తి",
+  "bagWeight": "బ్యాగ్ బరువు",
+  "price": {
+    "amount": "ధర",
+    "weight": "బరువు"
+  },
+  "fullBags": "పూర్తి బ్యాగులు",
+  "looseWeight": "లూజ్ బరువు",
+  "wastage": {
+    "amount": "నష్ట పరిమాణం",
+    "referenceWeight": "సూచన బరువు"
+  },
+  "result": {
+    "title": "ఫలితం",
+    "totalWeight": "మొత్తం బరువు",
+    "wastage": "నష్టం",
+    "netWeight": "నికర బరువు",
+    "totalAmount": "మొత్తం మొత్తం"
+  }
+}
