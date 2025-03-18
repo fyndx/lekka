@@ -130,12 +130,23 @@ export function ControlledInput<T extends FieldValues>(
   const { name, control, rules, ...inputProps } = props;
 
   const { field, fieldState } = useController({ control, name, rules });
+
+  // Handle different value types properly
+  const displayValue = React.useMemo(() => {
+    // Return empty string for undefined/null to avoid "undefined" text in input
+    if (field.value === undefined || field.value === null) {
+      return '';
+    }
+    // Convert numbers to strings for the input
+    return String(field.value);
+  }, [field.value]);
+
   return (
     <Input
       ref={field.ref}
       autoCapitalize="none"
       onChangeText={field.onChange}
-      value={(field.value as string) || ''}
+      value={displayValue}
       {...inputProps}
       error={fieldState.error?.message}
     />

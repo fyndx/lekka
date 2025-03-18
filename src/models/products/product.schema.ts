@@ -5,28 +5,23 @@ import { z } from 'zod';
 // Corn will have 2 kg wastage per 76 kg
 // Create a schema for the product
 
-const WastageSchema = z
-  .object({
-    amount: z.number().min(0).optional(), // wastage amount in kg
-    referenceWeight: z.number().positive(), // reference weight in kg
-  })
-  .describe('wastage configuration');
-
-const PriceSchema = z
-  .object({
-    amount: z.number().positive().optional(), // price amount
-    referenceWeight: z.number().positive(), // reference weight in kg
-  })
-  .describe('price configuration');
-
-const ProductSchema = z
-  .object({
-    productName: z.string(),
-    standardBagWeight: z.number().positive(),
-    price: PriceSchema,
-    wastage: WastageSchema,
-  })
-  .describe('Product configuration');
+const ProductSchema = z.object({
+  name: z.string(),
+  bagWeight: z.coerce.number().int().positive(),
+  price: z.object({
+    amount: z.coerce.number().int().positive(),
+    weight: z.coerce.number().int().positive(),
+  }),
+  wastage: z.object({
+    // Examples:
+    // 3 kgs wastage for 100 kgs
+    // 1 kg wastage for 76 kgs
+    amount: z.coerce.number().positive(),
+    referenceWeight: z.coerce.number().positive(),
+  }),
+  fullBags: z.coerce.number().int().positive(),
+  looseWeight: z.coerce.number().int().positive(),
+});
 
 export type Product = z.infer<typeof ProductSchema>;
 

@@ -1,44 +1,64 @@
 /* eslint-disable max-lines-per-function */
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import {
   Button,
   ControlledInput,
+  ControlledSelect,
   FocusAwareStatusBar,
   Text,
   View,
 } from '@/components/ui';
+import { type Product, ProductSchema } from '@/models/products/product.schema';
 import { useProducts } from '@/models/products/product.store';
 
-// Schema for taking input for calculation
-const schema = z.object({
-  product: z.string(),
-  bagWeight: z.coerce.number().int().positive(),
-  price: z.object({
-    amount: z.coerce.number().int().positive(),
-    weight: z.coerce.number().int().positive(),
-  }),
-  wastage: z.object({
-    // Examples:
-    // 3 kgs wastage for 100 kgs
-    // 1 kg wastage for 76 kgs
-    amount: z.coerce.number().positive(),
-    referenceWeight: z.coerce.number().positive(),
-  }),
-  fullBags: z.coerce.number().int().positive(),
-  looseWeight: z.coerce.number().int().nonnegative(),
-});
-
-type FormType = z.infer<typeof schema>;
-
 export default function Home() {
-  const { getProducts: products } = useProducts();
-  const { handleSubmit, control } = useForm<FormType>({
-    resolver: zodResolver(schema),
+  const { getProducts, getProductByName } = useProducts();
+  const products = getProducts();
+
+  const { handleSubmit, control, watch, reset, setValue } = useForm<Product>({
+    resolver: zodResolver(ProductSchema),
+    defaultValues: {
+      name: '',
+      bagWeight: undefined,
+      price: { amount: undefined, weight: undefined },
+      fullBags: undefined,
+      looseWeight: undefined,
+      wastage: { amount: undefined, referenceWeight: undefined },
+    },
   });
+
+  const selectedProduct = watch('name');
+
+  // Load product configuration when product selection changes
+  useEffect(() => {
+    if (selectedProduct) {
+      const productConfig = getProductByName(selectedProduct);
+      if (productConfig) {
+        reset(
+          {
+            price: { amount: undefined },
+            wastage: { referenceWeight: undefined },
+            fullBags: undefined,
+            looseWeight: undefined,
+          },
+          {
+            keepDefaultValues: true,
+          }
+        );
+        setValue('name', productConfig.name);
+        setValue('bagWeight', productConfig.bagWeight);
+        setValue('price.weight', productConfig.price.weight);
+        setValue('wastage.amount', productConfig.wastage.amount);
+        setValue(
+          'wastage.referenceWeight',
+          productConfig.wastage.referenceWeight
+        );
+      }
+    }
+  }, [selectedProduct, getProductByName, setValue, reset]);
 
   const [result, setResult] = useState<{
     totalAmount?: number;
@@ -47,8 +67,7 @@ export default function Home() {
     netWeight?: number;
   }>({});
 
-  const onSubmit = (data: FormType) => {
-    console.log(data);
+  const onSubmit = (data: Product) => {
     const { bagWeight, price, fullBags, looseWeight } = data;
     const totalWeight = bagWeight * fullBags + looseWeight;
     const wastage = Math.round(
@@ -65,17 +84,11 @@ export default function Home() {
     <View className="flex-1 p-4">
       <FocusAwareStatusBar />
       {/* TODO: Load Products from MMKV */}
-      {/* <ControlledSelect
+      <ControlledSelect
         control={control}
-        name={'product'}
+        name={'name'}
         label={'Product'}
-        options={products()}
-      /> */}
-      <ControlledInput
-        control={control}
-        name={'product'}
-        label={'Product'}
-        placeholder={'Enter name of the product'}
+        options={products}
       />
       <ControlledInput
         control={control}

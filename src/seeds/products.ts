@@ -1,10 +1,12 @@
+import type { Product } from '@/models/products/product.schema';
+
 export const PRODUCTS = [
   {
-    productName: 'Rice',
-    standardBagWeight: 100,
+    name: 'Rice',
+    bagWeight: 100,
     price: {
-      amount: undefined, // Default to undefined as it's now optional
-      referenceWeight: 100,
+      amount: 0, // Set a positive integer value
+      weight: 100, // Changed from referenceWeight to weight
     },
     wastage: {
       amount: 3,
@@ -12,15 +14,15 @@ export const PRODUCTS = [
     },
   },
   {
-    productName: 'White Sesame Seeds',
-    standardBagWeight: 75,
+    name: 'White Sesame Seeds',
+    bagWeight: 75,
     price: {
-      amount: undefined,
-      referenceWeight: 100,
+      amount: 0, // Set a positive integer value
+      weight: 100, // Changed from referenceWeight to weight
     },
     wastage: {
       amount: 3,
       referenceWeight: 100,
     },
   },
-];
+] as Product[];
