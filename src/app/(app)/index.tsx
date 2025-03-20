@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import {
   Button,
@@ -29,6 +29,15 @@ export default function Home() {
       wastage: { amount: undefined, referenceWeight: undefined },
     },
   });
+
+  const formValues = useWatch({
+    control,
+  });
+
+  useEffect(() => {
+    // Reset result when any field changes
+    setResult('');
+  }, [formValues]);
 
   const selectedProduct = watch('name');
 
