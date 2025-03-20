@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Env } from '@env';
+import { useNavigation } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 
 import { Item } from '@/components/settings/item';
@@ -13,17 +14,13 @@ import {
   Text,
   View,
 } from '@/components/ui';
-import { Github, Rate, Share, Support, Website } from '@/components/ui/icons';
 import { translate } from '@/lib';
-import { useProducts } from '@/models/products/product.store';
-import { PRODUCTS } from '@/seeds/products';
 
 export default function Settings() {
-  const { setProducts: setProductsOnStore } = useProducts();
+  const { navigate } = useNavigation();
 
-  const setProducts = () => {
-    setProductsOnStore(PRODUCTS);
-    // TODO: add burnt toast like notification
+  const goToProducts = () => {
+    navigate('product/list-products');
   };
 
   const { colorScheme } = useColorScheme();
@@ -48,7 +45,7 @@ export default function Settings() {
             <Item text="settings.version" value={Env.VERSION} />
           </ItemsContainer>
 
-          <ItemsContainer title="settings.support_us">
+          {/* <ItemsContainer title="settings.support_us">
             <Item
               text="settings.share"
               icon={<Share color={iconColor} />}
@@ -64,9 +61,9 @@ export default function Settings() {
               icon={<Support color={iconColor} />}
               onPress={() => {}}
             />
-          </ItemsContainer>
+          </ItemsContainer> */}
 
-          <ItemsContainer title="settings.links">
+          {/* <ItemsContainer title="settings.links">
             <Item text="settings.privacy" onPress={() => {}} />
             <Item text="settings.terms" onPress={() => {}} />
             <Item
@@ -79,11 +76,11 @@ export default function Settings() {
               icon={<Website color={iconColor} />}
               onPress={() => {}}
             />
-          </ItemsContainer>
+          </ItemsContainer> */}
 
           <View className="my-8">
             <ItemsContainer>
-              <Item text="settings.setProducts" onPress={setProducts} />
+              <Item text="settings.products" onPress={goToProducts} />
             </ItemsContainer>
           </View>
         </View>

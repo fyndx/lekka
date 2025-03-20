@@ -9,7 +9,7 @@ const ProductSchema = z.object({
   name: z.string(),
   bagWeight: z.coerce.number().int().positive(),
   price: z.object({
-    amount: z.coerce.number().int().positive(),
+    amount: z.coerce.number().int().nonnegative().optional(),
     weight: z.coerce.number().int().positive(),
   }),
   wastage: z.object({
