@@ -11,11 +11,13 @@ import {
   Text,
   View,
 } from '@/components/ui';
+import { useHistory } from '@/models/history/store';
 import { type Product, ProductSchema } from '@/models/products/product.schema';
 import { useProducts } from '@/models/products/product.store';
 
 export default function Home() {
   const { getProducts, getProductByName } = useProducts();
+  const { addHistoryRecord } = useHistory();
   const products = getProducts();
 
   const { handleSubmit, control, watch, reset, setValue } = useForm<Product>({
@@ -34,9 +36,9 @@ export default function Home() {
     control,
   });
 
+  // Reset result when any field changes
   useEffect(() => {
-    // Reset result when any field changes
-    setResult('');
+    setResult({});
   }, [formValues]);
 
   const selectedProduct = watch('name');
@@ -76,23 +78,63 @@ export default function Home() {
     netWeight?: number;
   }>({});
 
-  const onSubmit = (data: Product) => {
-    const { bagWeight, price, fullBags, looseWeight } = data;
-    const totalWeight = bagWeight * fullBags + looseWeight;
-    const wastage = Math.round(
-      (data.wastage.amount / data.wastage.referenceWeight) * totalWeight
-    );
+  const onSubmit = async (data: Product) => {
+    try {
+      const {
+        bagWeight,
+        price,
+        fullBags,
+        looseWeight,
+        wastage: wastageData,
+      } = data;
 
-    const netWeight = totalWeight - wastage;
-    const pricePerKg = price.amount / price.weight;
-    const totalAmount = netWeight * pricePerKg;
-    setResult({ totalAmount, wastage, totalWeight, netWeight });
+      // Ensure all required values are present
+      if (
+        !bagWeight ||
+        !price.amount ||
+        !price.weight ||
+        !fullBags ||
+        !wastageData.amount ||
+        !wastageData.referenceWeight
+      ) {
+        throw new Error('Missing required values');
+      }
+
+      const totalWeight = bagWeight * fullBags + (looseWeight ?? 0);
+      const wastage = Math.round(
+        (wastageData.amount / wastageData.referenceWeight) * totalWeight
+      );
+
+      const netWeight = totalWeight - wastage;
+      const pricePerKg = price.amount / price.weight;
+      const totalAmount = netWeight * pricePerKg;
+
+      // Save all calculation details to history
+      await addHistoryRecord({
+        productName: data.name,
+        bagWeight,
+        priceAmount: price.amount,
+        priceWeight: price.weight,
+        fullBags,
+        looseWeight: looseWeight ?? 0,
+        wastageAmount: wastageData.amount,
+        wastageReferenceWeight: wastageData.referenceWeight,
+        totalWeight,
+        wastage,
+        netWeight,
+        totalAmount,
+      });
+
+      setResult({ totalAmount, wastage, totalWeight, netWeight });
+    } catch (error) {
+      console.error('Error saving calculation:', error);
+      // Here you could show an error message to the user
+    }
   };
 
   return (
     <View className="flex-1 p-4">
       <FocusAwareStatusBar />
-      {/* TODO: Load Products from MMKV */}
       <ControlledSelect
         control={control}
         name={'name'}
@@ -161,7 +203,7 @@ export default function Home() {
       </View>
       <Button
         onPress={handleSubmit(onSubmit)}
-        label="Submit"
+        label="Calculate"
         variant="default"
       />
       {/* Show when result is available */}
