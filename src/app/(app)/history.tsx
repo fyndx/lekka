@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 
 import {
   FocusAwareStatusBar,
@@ -16,14 +17,16 @@ export default function History() {
   const { getHistoryRecords } = useHistory();
   const [records, setRecords] = useState<HistoryRecord[]>([]);
 
-  useEffect(() => {
-    const loadRecords = async () => {
-      const historyRecords = await getHistoryRecords();
-      setRecords(historyRecords);
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const loadRecords = async () => {
+        const historyRecords = await getHistoryRecords();
+        setRecords(historyRecords);
+      };
 
-    loadRecords();
-  }, [getHistoryRecords]);
+      loadRecords();
+    }, [getHistoryRecords])
+  );
 
   return (
     <>
