@@ -10,6 +10,7 @@ import {
 } from '@/components/ui';
 import type { History as HistoryRecord } from '@/models/history/schema';
 import { useHistory } from '@/models/history/store';
+import { convertUTCToLocalTime } from '@/utils/date-time';
 
 export default function History() {
   const { getHistoryRecords } = useHistory();
@@ -57,7 +58,7 @@ export default function History() {
                 <Text>{`Net Weight: ${record.netWeight} kg`}</Text>
                 <Text>{`Total Amount: ₹${record.totalAmount.toFixed(2)}`}</Text>
                 <Text className="mt-2 text-sm text-gray-500">
-                  {format(record.createdAt, 'PPpp')}
+                  {format(convertUTCToLocalTime(record.createdAt), 'PPpp')}
                 </Text>
               </View>
             </View>
