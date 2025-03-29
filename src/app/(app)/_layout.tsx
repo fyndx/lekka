@@ -1,28 +1,30 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { Redirect, SplashScreen, Tabs } from 'expo-router';
+import { SplashScreen, Tabs } from 'expo-router';
 import { History, House } from 'lucide-react-native';
 import React, { useCallback, useEffect } from 'react';
 
 import { Settings as SettingsIcon } from '@/components/ui/icons';
-import { useAuth, useIsFirstTime } from '@/lib';
 
 export default function TabLayout() {
-  const status = useAuth.use.status();
-  const [isFirstTime] = useIsFirstTime();
+  // const status = useAuth.use.status();
+  // const [isFirstTime] = useIsFirstTime();
   const hideSplash = useCallback(async () => {
     await SplashScreen.hideAsync();
   }, []);
   useEffect(() => {
-    if (status !== 'idle') {
-      setTimeout(() => {
-        hideSplash();
-      }, 1000);
-    }
-  }, [hideSplash, status]);
+    // if (status !== 'idle') {
+    setTimeout(() => {
+      hideSplash();
+    }, 1000);
+    // }
+  }, [
+    hideSplash,
+    // status
+  ]);
 
-  if (isFirstTime) {
-    return <Redirect href="/onboarding" />;
-  }
+  // if (isFirstTime) {
+  //   return <Redirect href="/onboarding" />;
+  // }
   return (
     <Tabs>
       <Tabs.Screen
